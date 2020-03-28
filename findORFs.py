@@ -1,6 +1,6 @@
 import os
 from Bio.Alphabet import IUPAC
-from Bio.Seq import Seq #for use later in modification
+from Bio.Seq import Seq
 from compareProteinProduct import *
 
 #dictionary: key is codon, value is coresponding amino acid
@@ -22,6 +22,8 @@ codonTable = {
 	'TAC':'Y', 'TAT':'Y', 'TAA':'_', 'TAG':'_',
 	'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W'
 }
+
+variantsArray = []
 
 
 #get all possible protein sequences from input dna strand
@@ -99,20 +101,50 @@ def writeProteinToFile(protein):
     f = open(inputfile, "w")
     f.write(protein)
     f.close
-    
 
+#import DNA sequence
+def importSequence():     
+    inputfile = input("Enter text file containing DNA sequence:\n")    
+    inputfile = "./sequence_files/genes/" + inputfile
+    f = open(inputfile, "r")     
+    for line in f:
+        if line[0] == '>':
+            variantsArray.append(line)                      
+    f.seek(0)
+    return f       
+
+def identifyVariants(f):    
+    return
+    
 if __name__ == '__main__':
     #import dna sequence
-    print("Enter text file containing DNA sequence: ")
-    inputfile = input()
-    inputfile = "./sequence_files/genes/" + inputfile
-    f = open(inputfile, "r") 
-    dnaSeq = f.read() 
+    f = importSequence()
+
+    print("\nIdentified sequence variants:")
+    index = 1
+    for header in variantsArray:
+        print(index, "-", header)
+        index += 1
+
+    print("Which variant would you like to translate?")
+    print("Please enter the correspoding number: ", end='')
+    variantNum = int(input())
+    variant = variantsArray[variantNum-1]
+    for line in f:
+        if variant in line:
+            break
+         
+    dnaSeq = ''    
+    for line in f:  
+        if line[0] is not '>':                  
+            dnaSeq = dnaSeq + line 
+        else:
+            break    
+               
+    
     f.close()
-    print("\n--------------------------------------------------------------")
-    dnaSeq = dnaSeq.replace("\n", "")  
-    dnaSeq = dnaSeq.replace("\r", "") 
-    dnaSeq = dnaSeq.upper()
+    dnaSeq = dnaSeq.replace("\n", '')
+    print("--------------------------------------------------------------")    
     
     #get comlementary dna sequence
     dnaSeqComp = getSequenceComplement(dnaSeq)         
