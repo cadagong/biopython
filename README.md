@@ -5,6 +5,7 @@ A small, self-directed Python project exploring how DNA sequences can be transla
 This project was built as an exploratory exercise, not as part of coursework.
 
 **Functionality**
+
 	•	Load DNA sequences from text files
 	•	Generate reading frames for both forward and reverse-complement strands
 	•	Identify open reading frames using start and stop codons
