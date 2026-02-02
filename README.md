@@ -19,6 +19,7 @@ This project was built as an exploratory exercise, not as part of coursework.
 The implementation explicitly walks through reading frames and codons to keep the biological logic transparent rather than optimized.
 
 **Technologies**
+
 	•	Python
 	•	Manual sequence manipulation (no external pipelines)
 
